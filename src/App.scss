@@ -1,0 +1,18 @@
+@import "./component_styles/list";
+@import "./component_styles/searchBar";
+@import "./component_styles/title";
+
+.grid_container{
+    display:grid;
+    grid-template-rows: 15vh 85vh;
+    grid-template-columns: 50% 50%;
+}
+
+.search_container{
+    display:grid;
+    grid-template-rows: 15% 85% 
+}
+
+.favourites_container{
+    background:rgb(204, 185, 209);
+}

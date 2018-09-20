@@ -1,0 +1,19 @@
+.list_container{
+padding: 5%;
+}
+
+.list_item{
+    display:grid;
+    grid-template-columns: 40% 40% 13% 7%;
+    grid-template-rows: 2%;
+    text-align: center;
+    padding: 0%;
+}    
+
+.no_result{
+    text-align: center;
+}
+
+p, button{
+    padding: 0%
+}

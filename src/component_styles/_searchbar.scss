@@ -1,0 +1,34 @@
+.search_bar{
+display: grid;
+grid-template-columns: 2fr 1fr;
+padding: 5%;
+}
+
+%margin{
+margin: 0% 2%;
+border-radius: 4px;
+}
+
+.input{
+@extend %margin;
+}
+
+.search_button{
+@extend %margin;
+border: solid purple;
+background:purple;
+color:white;
+border: 0;
+transition: 0.4s ease-in;
+}
+
+.search_button:hover{
+background: white;
+color: purple;
+border: solid purple
+}
+
+.search_button:focus{
+background: purple;
+color:white;
+}
