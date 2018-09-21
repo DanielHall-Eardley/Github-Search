@@ -3,17 +3,16 @@ import List from "./List"
 
 const FavouritesList = (props)=>{
   const {results, toggleFavourite} = props
-  let favouritesArray = results.fiter(el=>{
-    if(el.favourited === true){
-      return el
-    }
-  })
+
+  /*I added the listType prop to distinguish between
+  the two different areas where results can be rendered*/
   return(
-    favouritesArray.length === 0 ?
-    <div></div>
+    results.length === 0 ?
+    <p className="no_result">Add to favourites</p>
     :
-   <List results={favouritesArray}
-    toggleFavourite={toggleFavourite}/>
+   <List results={results}
+    toggleFavourite={toggleFavourite}
+    listType="favourites"/>
   )
 }
 

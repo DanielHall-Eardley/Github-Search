@@ -1,3 +1,4 @@
+/*I like to seperate my styles by component for ease of access*/
 .list_container {
   padding: 5%;
 }
@@ -5,20 +6,22 @@
 .list_item {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 40% 40% 13% 7%;
-      grid-template-columns: 40% 40% 13% 7%;
-  -ms-grid-rows: 2%;
-      grid-template-rows: 2%;
-  text-align: center;
-  padding: 0%;
+  -ms-grid-columns: 45% 25% 20% 10%;
+      grid-template-columns: 45% 25% 20% 10%;
 }
 
 .no_result {
   text-align: center;
 }
 
-p, button {
-  padding: 0%;
+.list_entry {
+  margin: 1px;
+  overflow: hidden;
+}
+
+.list_button {
+  margin: 1px;
+  border-radius: 2px;
 }
 
 .search_bar {
@@ -26,7 +29,7 @@ p, button {
   display: grid;
   -ms-grid-columns: 2fr 1fr;
       grid-template-columns: 2fr 1fr;
-  padding: 5%;
+  padding: 4%;
 }
 
 .input, .search_button {
@@ -82,6 +85,33 @@ p, button {
       grid-template-rows: 15vh 85vh;
   -ms-grid-columns: 50% 50%;
       grid-template-columns: 50% 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid_container {
+    -ms-grid-rows: 10vh 45vh 45vh;
+        grid-template-rows: 10vh 45vh 45vh;
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+  }
+  .favourites_container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-row: 3;
+    -ms-grid-row-span: 1;
+    grid-row: 3/4;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1/2;
+    overflow: scroll;
+  }
+  .search_container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 15% 85%;
+        grid-template-rows: 15% 85%;
+    overflow: scroll;
+  }
 }
 
 .search_container {

@@ -3,7 +3,6 @@ import Title from "./components/Title.js"
 import Searchbar from "./components/Searchbar"
 import ResultList from "./components/ResultList.js"
 import FavouritesList from "./components/FavouritesList.js"
-import {apiKey} from "./config.js"
 import axios from "axios"
 import './App.css';
 
@@ -14,13 +13,21 @@ class App extends Component{
     previousSearch:"",
     results:[]
   }
-
+  
+  //captures the text input value
   handleChange=(e)=>{
     this.setState({
       searchInput: e.target.value
     })
   }
 
+  /*This function takes the results array and makes a second request 
+  to the github api, using data from the first request to get the 
+  latest tag for each search result. After that, it extracts the 
+  relevant and updates the state. I used functional setState to add
+  the new objects to state, as the existing array is iterated through.
+  I also added a "favourite:false" boolean to each object, to be used 
+  to track if a result is favourited or not.*/
   secondApiCall=(array)=>{
     array.map((item, i)=>{
       axios({
@@ -33,7 +40,7 @@ class App extends Component{
           return "N/A"
         }
       }).then(res=>{
-        let newObject = {name: item.name, language: item.language, version: res, favourited: false, index:i}
+        let newObject = {name: item.name, owner: item.owner.login, language: item.language, version: res, favourited: false, index:i}
         this.setState((prevState, props)=>{
           let newArray = prevState.results.concat(newObject)
           return {
@@ -45,22 +52,26 @@ class App extends Component{
     })
   }
 
+  /*this function submits the get request to the github api,
+  with the user's search query and then returns the first ten results to an array.
+  The array then gets fed to the secondApiCall function as parameter, 
+  I also had to add async/await to stop the secondApiCall function from excuting 
+  before the request was finished. */
   handleSubmit= async (e)=>{
     e.preventDefault()
+    this.setState({
+      results: []
+    })
     const {searchInput} = this.state
     if (searchInput === ""){
       alert("please enter a valid search query")
-    }else if(this.state.results.length > 0){
-      this.setState({
-        results: []
-      })
     }else{
       let apiCall = axios({
         method:"get",
-        url: `https://api.github.com/search/repositories?q=${searchInput}&access_token=${apiKey}`
+        url: `https://api.github.com/search/repositories?q=${searchInput}`
       }).then(res=>{
         let newArray = res.data.items.filter((item, i)=>{
-          if(i<=10){
+          if(i<=9){
             return item
           }
         })
@@ -71,18 +82,20 @@ class App extends Component{
     }
   }
 
-  toggleFavourite=()=>{
+  /*In this function I have used the setState function to take the existing array,
+  flip the favourite property to its opposite boolean value and then return the updated array to state.
+  This function handles both adding and removing items from the favourites list*/
+  toggleFavourite=(i)=>{
     this.setState((prevState, props)=>{
-      let newArray = prevState.results.map((item, i)=>{
+      let newArray = prevState.results.map((item)=>{
         if(item.index === i){
-          return {name: item.name, language: item.language, version: item.version, favourited: !item.favourited, index: i}
+          return {...item, favourited: !item.favourited}
         }else{
           return item
         }
       })
-      console.log(newArray)
       return{
-       results: newArray
+        results: newArray
       }  
     })
   }

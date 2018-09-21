@@ -1,16 +1,39 @@
+/*I like to seperate my styles by component for ease of access*/
+
 @import "./component_styles/list";
 @import "./component_styles/searchBar";
 @import "./component_styles/title";
 
+//I'm a big fan of CSS Grid, as you can see!
 .grid_container{
     display:grid;
     grid-template-rows: 15vh 85vh;
     grid-template-columns: 50% 50%;
 }
+//I added a media query to try an make the app viewable on mobile devices
+@media only screen and (max-width: 600px){
+    .grid_container{
+        grid-template-rows: 10vh 45vh 45vh;
+        grid-template-columns: 100%;
+    }
+
+    .favourites_container{
+        display:grid;
+        grid-row:3/4;
+        grid-column: 1/2;
+        overflow:scroll;
+    }
+
+    .search_container{
+        display:grid;
+        grid-template-rows: 15% 85%; 
+        overflow:scroll;
+    }
+} 
 
 .search_container{
     display:grid;
-    grid-template-rows: 15% 85% 
+    grid-template-rows: 15% 85%; 
 }
 
 .favourites_container{
